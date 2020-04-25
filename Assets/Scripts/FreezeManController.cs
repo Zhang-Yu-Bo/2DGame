@@ -7,82 +7,82 @@ public class FreezeManController : MonoBehaviour
     public Animator animator;
     public float speed = 0.0f;
     public float sensitivity;
-    public string currentState = "Idle";
     public float delayCheckTime = 0.3f;
+    public bool isOnTheGround = false;
+    public float jumpPower;
+    public float MAX_SPEED = 0.5f;
+    public float MIN_SPEED = 0.0f;
 
     private float doubleClick = 0.0f;
+    private Rigidbody2D rigidbody2D;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        this.rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
         this.CharacterMove();
+        
     }
 
     void CharacterMove()
     {
-        this.GetCurrentMoveState();
-        if (this.currentState == "Idle")
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.A))
         {
-            this.speed = 0.0f;
+            if (Time.time - this.doubleClick < this.delayCheckTime && this.isOnTheGround)
+                this.MAX_SPEED = 1.0f;
+            else
+                this.MAX_SPEED = 0.5f;
+                this.doubleClick = Time.time;
         }
-        else if (this.currentState == "Walk")
+        
+        if (Input.GetKey(KeyCode.D))
         {
             this.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
-            this.speed = 0.5f;
-        }
-        else if (this.currentState == "WalkInvert")
+            this.speed = this.MAX_SPEED;
+        }else if (Input.GetKey(KeyCode.A))
         {
             this.gameObject.transform.eulerAngles = new Vector3(0, 180, 0);
-            this.speed = 0.5f;
+            this.speed = this.MAX_SPEED;
         }
-        else if (this.currentState == "Run")
+        else
         {
-            this.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
-            this.speed = 1.0f;
+            this.speed = 0;
         }
-        else if (this.currentState == "RunInvert")
+        if (this.isOnTheGround && Input.GetKeyDown(KeyCode.W))
         {
-            this.gameObject.transform.eulerAngles = new Vector3(0, 180, 0);
-            this.speed = 1.0f;
+            this.rigidbody2D.AddForce(this.jumpPower * Vector2.up);
+        }
+        else
+        {
+            if (!this.isOnTheGround)
+                this.MAX_SPEED = 0.5f;
         }
 
-        animator.SetFloat("Speed", this.speed);
+        this.animator.SetFloat("Speed", this.speed);
         this.gameObject.transform.Translate(Vector3.right * this.speed * this.sensitivity);
     }
 
-    void GetCurrentMoveState()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Set the state machine of moving
-        // set walk
-        if (this.currentState == "Idle" && Input.GetKeyDown(KeyCode.D))
-            this.currentState = "Walk";
-        // set walk invert
-        if (this.currentState == "Idle" && Input.GetKeyDown(KeyCode.A))
-            this.currentState = "WalkInvert";
-        // set run
-        if ((this.currentState == "Idle" || this.currentState == "Walk") && Input.GetKeyDown(KeyCode.D))
+        if (collision.gameObject.tag == "Ground")
         {
-            if (Time.time - this.doubleClick < this.delayCheckTime)
-                this.currentState = "Run";
-            this.doubleClick = Time.time;
+            this.isOnTheGround = true;
+            this.animator.SetBool("Jump", false);
         }
-        // set run invert
-        if ((this.currentState == "Idle" || this.currentState == "WalkInvert") && Input.GetKeyDown(KeyCode.A))
-        {
-            if (Time.time - this.doubleClick < this.delayCheckTime)
-                this.currentState = "RunInvert";
-            this.doubleClick = Time.time;
-        }
-        // set idle
-        if ((this.currentState == "Walk" || this.currentState == "Run") && Input.GetKeyUp(KeyCode.D))
-            this.currentState = "Idle";
-        if ((this.currentState == "WalkInvert" || this.currentState == "RunInvert") && Input.GetKeyUp(KeyCode.A))
-            this.currentState = "Idle";
     }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            this.isOnTheGround = false;
+            this.animator.SetBool("Jump", true);
+        }
+    }
+
 }
