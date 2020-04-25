@@ -23,5 +23,13 @@ public class CameraTest : MonoBehaviour
 		{
 			_Trans.Translate(new Vector2(-10 * Time.deltaTime, 0));
 		}
-    }
+		else if (Input.GetKey(KeyCode.UpArrow))
+		{
+			_Trans.Translate(new Vector2(0, 10 * Time.deltaTime));
+		}
+		else if (Input.GetKey(KeyCode.DownArrow))
+		{
+			_Trans.Translate(new Vector2(0, -10 * Time.deltaTime));
+		}
+	}
 }
