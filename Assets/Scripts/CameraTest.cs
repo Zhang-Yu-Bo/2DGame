@@ -15,21 +15,26 @@ public class CameraTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		//Debug.Log(_Trans.position);
 		if (Input.GetKey(KeyCode.RightArrow))
 		{
-			_Trans.Translate(new Vector2(10 * Time.deltaTime, 0));
+			if (_Trans.position.x < 50)
+				_Trans.Translate(new Vector2(10 * Time.deltaTime, 0));
 		}
 		else if (Input.GetKey(KeyCode.LeftArrow)) 
 		{
-			_Trans.Translate(new Vector2(-10 * Time.deltaTime, 0));
+			if(_Trans.position.x > 0)
+				_Trans.Translate(new Vector2(-10 * Time.deltaTime, 0));
 		}
 		else if (Input.GetKey(KeyCode.UpArrow))
 		{
-			_Trans.Translate(new Vector2(0, 10 * Time.deltaTime));
+			if(_Trans.position.y<10)
+				_Trans.Translate(new Vector2(0, 10 * Time.deltaTime));
 		}
 		else if (Input.GetKey(KeyCode.DownArrow))
 		{
-			_Trans.Translate(new Vector2(0, -10 * Time.deltaTime));
+			if (_Trans.position.y > -27)
+				_Trans.Translate(new Vector2(0, -10 * Time.deltaTime));
 		}
 	}
 }

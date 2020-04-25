@@ -48,9 +48,30 @@ TagManager:
   - name: BackGround2
     uniqueID: 1370949355
     locked: 0
+  - name: ForeGroundDec00
+    uniqueID: 2081150033
+    locked: 0
+  - name: ForeGroundDec01
+    uniqueID: 1680104641
+    locked: 0
   - name: ForeGround1
     uniqueID: 587598131
     locked: 0
   - name: ForeGround2
     uniqueID: 1203761579
+    locked: 0
+  - name: ForeGroundDec10
+    uniqueID: 3872460125
+    locked: 0
+  - name: ForeGroundDec11
+    uniqueID: 1037754283
+    locked: 0
+  - name: Player
+    uniqueID: 2259713981
+    locked: 0
+  - name: ForeGroundDec20
+    uniqueID: 676126175
+    locked: 0
+  - name: ForeGroundDec21
+    uniqueID: 2082978543
     locked: 0
