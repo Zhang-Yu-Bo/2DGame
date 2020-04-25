@@ -5,10 +5,10 @@ using UnityEngine;
 public class FreezeManController : MonoBehaviour
 {
     public Animator animator;
-    public float MAX_SPEED = 1.0f;
-    public float MIN_SPEED = 0.0f;
     public float speed = 0.0f;
     public float sensitivity;
+    public string currentState = "Idle";
+    public float delayCheckTime = 0.3f;
 
     private float doubleClick = 0.0f;
 
@@ -26,36 +26,63 @@ public class FreezeManController : MonoBehaviour
 
     void CharacterMove()
     {
-        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.A))
+        this.GetCurrentMoveState();
+        if (this.currentState == "Idle")
         {
-            if (Time.time - this.doubleClick < 0.3f)
-                this.MAX_SPEED = 1.0f;
-            else
-                this.MAX_SPEED = 0.5f;
-            this.doubleClick = Time.time;
+            this.speed = 0.0f;
         }
-
-        if (Input.GetKey(KeyCode.D))
+        else if (this.currentState == "Walk")
         {
             this.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
             this.speed = 0.5f;
-            if (this.MAX_SPEED > 0.5f)
-                this.speed = this.MAX_SPEED;
         }
-        else if (Input.GetKey(KeyCode.A))
+        else if (this.currentState == "WalkInvert")
         {
             this.gameObject.transform.eulerAngles = new Vector3(0, 180, 0);
             this.speed = 0.5f;
-            if (this.MAX_SPEED > 0.5f)
-                this.speed = this.MAX_SPEED;
         }
-        else
+        else if (this.currentState == "Run")
         {
-            this.speed = 0;
+            this.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+            this.speed = 1.0f;
+        }
+        else if (this.currentState == "RunInvert")
+        {
+            this.gameObject.transform.eulerAngles = new Vector3(0, 180, 0);
+            this.speed = 1.0f;
         }
 
-        this.speed = Mathf.Clamp(this.speed, this.MIN_SPEED, this.MAX_SPEED);
         animator.SetFloat("Speed", this.speed);
         this.gameObject.transform.Translate(Vector3.right * this.speed * this.sensitivity);
+    }
+
+    void GetCurrentMoveState()
+    {
+        // Set the state machine of moving
+        // set walk
+        if (this.currentState == "Idle" && Input.GetKeyDown(KeyCode.D))
+            this.currentState = "Walk";
+        // set walk invert
+        if (this.currentState == "Idle" && Input.GetKeyDown(KeyCode.A))
+            this.currentState = "WalkInvert";
+        // set run
+        if ((this.currentState == "Idle" || this.currentState == "Walk") && Input.GetKeyDown(KeyCode.D))
+        {
+            if (Time.time - this.doubleClick < this.delayCheckTime)
+                this.currentState = "Run";
+            this.doubleClick = Time.time;
+        }
+        // set run invert
+        if ((this.currentState == "Idle" || this.currentState == "WalkInvert") && Input.GetKeyDown(KeyCode.A))
+        {
+            if (Time.time - this.doubleClick < this.delayCheckTime)
+                this.currentState = "RunInvert";
+            this.doubleClick = Time.time;
+        }
+        // set idle
+        if ((this.currentState == "Walk" || this.currentState == "Run") && Input.GetKeyUp(KeyCode.D))
+            this.currentState = "Idle";
+        if ((this.currentState == "WalkInvert" || this.currentState == "RunInvert") && Input.GetKeyUp(KeyCode.A))
+            this.currentState = "Idle";
     }
 }
