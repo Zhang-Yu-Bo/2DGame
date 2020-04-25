@@ -26,7 +26,6 @@ public class FreezeManController : MonoBehaviour
     void Update()
     {
         this.CharacterMove();
-        
     }
 
     void CharacterMove()
@@ -63,8 +62,12 @@ public class FreezeManController : MonoBehaviour
             Instantiate(this.freezeBall, position, rotation);
         }
 
+        this.isOnTheGround = this.DetectGround();
         if (this.isOnTheGround && Input.GetKeyDown(KeyCode.W))
+        {
             this.gameObject.GetComponent<Rigidbody2D>().AddForce(this.jumpPower * Vector2.up);
+            this.animator.SetBool("Jump", true);
+        }
         else if (!this.isOnTheGround)
             this.MAX_SPEED = 0.5f;
 
@@ -72,22 +75,61 @@ public class FreezeManController : MonoBehaviour
         this.gameObject.transform.Translate(Vector3.right * this.speed * this.sensitivity);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-        {
-            this.isOnTheGround = true;
-            this.animator.SetBool("Jump", false);
-        }
-    }
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.tag == "Ground")
+    //    {
+    //        this.isOnTheGround = true;
+    //        this.animator.SetBool("Jump", false);
+    //    }
+    //}
+    //
+    //private void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.tag == "Ground")
+    //    {
+    //        this.isOnTheGround = false;
+    //        this.animator.SetBool("Jump", true);
+    //    }
+    //}
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private bool DetectGround()
     {
-        if (collision.gameObject.tag == "Ground")
+        Vector2 temp = new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y - 1f);
+        Ray2D ray1 = new Ray2D(temp + Vector2.right * 0.5f, Vector2.down);
+        Ray2D ray2 = new Ray2D(temp, Vector2.down);
+        Ray2D ray3 = new Ray2D(temp + Vector2.left * 0.5f, Vector2.down);
+        RaycastHit2D hit1 = Physics2D.Raycast(ray1.origin, ray1.direction);
+        RaycastHit2D hit2 = Physics2D.Raycast(ray2.origin, ray2.direction);
+        RaycastHit2D hit3 = Physics2D.Raycast(ray3.origin, ray3.direction);
+        if (hit2)
         {
-            this.isOnTheGround = false;
-            this.animator.SetBool("Jump", true);
+            Debug.DrawLine(ray2.origin, hit2.point, Color.red);
+            if (hit2.collider.gameObject.tag == "Ground" && hit2.distance == 0)
+            {
+                this.animator.SetBool("Jump", false);
+                return true;
+            }
         }
+        if (hit1)
+        {
+            Debug.DrawLine(ray1.origin, hit1.point, Color.red);
+            if (hit1.collider.gameObject.tag == "Ground" && hit1.distance == 0)
+            {
+                this.animator.SetBool("Jump", false);
+                return true;
+            }
+        }
+        if (hit3)
+        {
+            Debug.DrawLine(ray3.origin, hit3.point, Color.red);
+            if (hit3.collider.gameObject.tag == "Ground" && hit3.distance == 0)
+            {
+                this.animator.SetBool("Jump", false);
+                return true;
+            }
+        }
+        return false;
     }
 
 }
