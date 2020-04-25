@@ -1,11 +1,13 @@
 fileFormatVersion: 2
-guid: bff15d01fad4877449faa728dac39397
+guid: b4c23426b61ebcd4d85bc0f1f9934366
 TextureImporter:
   fileIDToRecycleName:
-    21300000: freeze_0_idle_0
-    21300002: freeze_0_idle_1
-    21300004: freeze_0_idle_2
-    21300006: freeze_0_idle_3
+    21300000: freeze_attack_0
+    21300002: freeze_attack_1
+    21300004: freeze_attack_2
+    21300006: freeze_attack_3
+    21300008: freeze_attack_4
+    21300010: freeze_attack_5
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -64,7 +66,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -75,7 +77,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -86,7 +88,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Android
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -99,13 +101,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: freeze_0_idle_0
+      name: freeze_attack_0
       rect:
         serializedVersion: 2
-        x: 68
-        y: 35
-        width: 86
-        height: 153
+        x: 87
+        y: 155
+        width: 63
+        height: 77
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -113,19 +115,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7a6b357405f7cb24196a5cc6a64c1cb7
+      spriteID: cc98d14cb98c82e449d3ff23d1b07a42
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: freeze_0_idle_1
+      name: freeze_attack_1
       rect:
         serializedVersion: 2
-        x: 236
-        y: 35
-        width: 86
-        height: 153
+        x: 174
+        y: 155
+        width: 57
+        height: 77
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -133,19 +135,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a689f9b25e43e6b4cae5b5cdef95704f
+      spriteID: adea8d2a2cbd2ab4abbb01d63a4cc69c
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: freeze_0_idle_2
+      name: freeze_attack_2
       rect:
         serializedVersion: 2
-        x: 405
-        y: 35
-        width: 85
-        height: 153
+        x: 251
+        y: 155
+        width: 72
+        height: 73
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,19 +155,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ec2562b59b053a24290ef8bf171f188c
+      spriteID: eb0c769117fdb9940949661db4957531
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: freeze_0_idle_3
+      name: freeze_attack_3
       rect:
         serializedVersion: 2
-        x: 571
-        y: 35
-        width: 88
-        height: 153
+        x: 345
+        y: 155
+        width: 69
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,7 +175,47 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 664e75939384175489fe7803d34e99e1
+      spriteID: 03b61afff3cb3fe4aa3468b184a2b9a6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: freeze_attack_4
+      rect:
+        serializedVersion: 2
+        x: 431
+        y: 155
+        width: 67
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84f91f0b65af4f0488f4402f36f25250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: freeze_attack_5
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 155
+        width: 64
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 070f067d69859d1478a9eee2099c16ee
       vertices: []
       indices: 
       edges: []
@@ -181,7 +223,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 8dcc3a8b2df2c0248b58d6ef4d9133a0
+    spriteID: e72a5d12e37f93641a254edcb71e14e8
     vertices: []
     indices: 
     edges: []
