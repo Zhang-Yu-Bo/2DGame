@@ -11,15 +11,15 @@ public class FreezeManController : MonoBehaviour
     public bool isOnTheGround = false;
     public float jumpPower;
     public float MAX_SPEED = 0.5f;
-    public float MIN_SPEED = 0.0f;
+    public GameObject freezeBall;
+    public float roleEdgeX;
 
     private float doubleClick = 0.0f;
-    private Rigidbody2D rigidbody2D;
 
     // Start is called before the first frame update
     void Start()
     {
-        this.rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
+
     }
 
     // Update is called once per frame
@@ -37,31 +37,36 @@ public class FreezeManController : MonoBehaviour
                 this.MAX_SPEED = 1.0f;
             else
                 this.MAX_SPEED = 0.5f;
-                this.doubleClick = Time.time;
+            this.doubleClick = Time.time;
         }
-        
         if (Input.GetKey(KeyCode.D))
         {
             this.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
             this.speed = this.MAX_SPEED;
-        }else if (Input.GetKey(KeyCode.A))
+        }
+        else if (Input.GetKey(KeyCode.A))
         {
             this.gameObject.transform.eulerAngles = new Vector3(0, 180, 0);
             this.speed = this.MAX_SPEED;
         }
         else
-        {
             this.speed = 0;
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            this.animator.SetTrigger("Attack");
+            Vector3 position = this.gameObject.transform.position;
+            Quaternion rotation = this.gameObject.transform.rotation;
+            if (this.gameObject.transform.eulerAngles.y == 180)
+                position += Vector3.left * this.roleEdgeX;
+            else
+                position += Vector3.right * this.roleEdgeX;
+            Instantiate(this.freezeBall, position, rotation);
         }
+
         if (this.isOnTheGround && Input.GetKeyDown(KeyCode.W))
-        {
-            this.rigidbody2D.AddForce(this.jumpPower * Vector2.up);
-        }
-        else
-        {
-            if (!this.isOnTheGround)
-                this.MAX_SPEED = 0.5f;
-        }
+            this.gameObject.GetComponent<Rigidbody2D>().AddForce(this.jumpPower * Vector2.up);
+        else if (!this.isOnTheGround)
+            this.MAX_SPEED = 0.5f;
 
         this.animator.SetFloat("Speed", this.speed);
         this.gameObject.transform.Translate(Vector3.right * this.speed * this.sensitivity);
