@@ -76,3 +76,6 @@ TagManager:
   - name: ForeGroundDec21
     uniqueID: 2082978543
     locked: 0
+  - name: Fog
+    uniqueID: 2713271565
+    locked: 0
