@@ -5,12 +5,12 @@ using UnityEngine;
 public class DeadEffect : MonoBehaviour
 {
 	public Camera mainCam;
-
-    // Start is called before the first frame update
-    void Start()
+	public AudioSource au;
+	// Start is called before the first frame update
+	void Start()
     {
-        
-    }
+		
+	}
 
     // Update is called once per frame
     void Update()
@@ -23,5 +23,6 @@ public class DeadEffect : MonoBehaviour
 		mainCam.GetComponent<GrayScale>().enabled = true;
 		mainCam.GetComponent<Blur>().enabled = false;
 		mainCam.GetComponent<Neg>().enabled = false;
+		au.Play(0);
 	}
 }
