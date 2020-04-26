@@ -129,6 +129,7 @@ public class FreezeManController : MonoBehaviour
                 return true;
             }
         }
+        this.animator.SetBool("Jump", true);
         return false;
     }
 
