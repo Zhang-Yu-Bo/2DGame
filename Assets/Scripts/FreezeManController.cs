@@ -13,8 +13,25 @@ public class FreezeManController : MonoBehaviour
     public float MAX_SPEED = 0.5f;
     public GameObject freezeBall;
     public float roleEdgeX;
+    public int JumpKeyCode = 119;
+    public int BackKeyCode = 97;
+    public int ForwardKeyCode = 100;
+    public int AttackKeyCode = 106;
 
     private float doubleClick = 0.0f;
+    
+
+    public void Awake()
+    {
+        if (PlayerPrefs.HasKey("Jump"))
+            this.JumpKeyCode = PlayerPrefs.GetInt("Jump");
+        if (PlayerPrefs.HasKey("Back"))
+            this.BackKeyCode = PlayerPrefs.GetInt("Back");
+        if (PlayerPrefs.HasKey("Forward"))
+            this.ForwardKeyCode = PlayerPrefs.GetInt("Forward");
+        if (PlayerPrefs.HasKey("Attack"))
+            this.AttackKeyCode = PlayerPrefs.GetInt("Attack");
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +47,8 @@ public class FreezeManController : MonoBehaviour
 
     void CharacterMove()
     {
-        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown((UnityEngine.KeyCode)this.ForwardKeyCode) 
+            || Input.GetKeyDown((UnityEngine.KeyCode)this.BackKeyCode))
         {
             if (Time.time - this.doubleClick < this.delayCheckTime && this.isOnTheGround)
                 this.MAX_SPEED = 1.0f;
@@ -38,19 +56,19 @@ public class FreezeManController : MonoBehaviour
                 this.MAX_SPEED = 0.5f;
             this.doubleClick = Time.time;
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey((UnityEngine.KeyCode)this.ForwardKeyCode))
         {
             this.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
             this.speed = this.MAX_SPEED;
         }
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey((UnityEngine.KeyCode)this.BackKeyCode))
         {
             this.gameObject.transform.eulerAngles = new Vector3(0, 180, 0);
             this.speed = this.MAX_SPEED;
         }
         else
             this.speed = 0;
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown((UnityEngine.KeyCode)this.AttackKeyCode))
         {
             this.animator.SetTrigger("Attack");
             Vector3 position = this.gameObject.transform.position;
@@ -63,7 +81,7 @@ public class FreezeManController : MonoBehaviour
         }
 
         this.isOnTheGround = this.DetectGround();
-        if (this.isOnTheGround && Input.GetKeyDown(KeyCode.W))
+        if (this.isOnTheGround && Input.GetKeyDown((UnityEngine.KeyCode)this.JumpKeyCode))
         {
             this.gameObject.GetComponent<Rigidbody2D>().AddForce(this.jumpPower * Vector2.up);
             this.animator.SetBool("Jump", true);
