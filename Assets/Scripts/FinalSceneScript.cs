@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Victory : MonoBehaviour
+public class FinalSceneScript : MonoBehaviour
 {
-
     // Start is called before the first frame update
     void Start()
     {
@@ -18,9 +17,15 @@ public class Victory : MonoBehaviour
         
     }
 
-	void OnTriggerEnter2D(Collider2D other)
-	{
-        FindObjectOfType<LevelLoaderScript>().LoadScene(2);
-		//SceneManager.LoadScene("FinalScene");
-	}
+    public void changeToMenuOrQuit(int index)
+    {
+        if (index == 0)
+        {
+            SceneManager.LoadScene(0);
+        }
+        else
+        {
+            Application.Quit();
+        }
+    }
 }
