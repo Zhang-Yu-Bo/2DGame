@@ -24,8 +24,6 @@ public class Beverage : MonoBehaviour
 		if(other.gameObject.tag=="Player")
 		{
 			mainCam.GetComponent<Blur>().enabled = true;
-			mainCam.GetComponent<GrayScale>().enabled = false;
-			mainCam.GetComponent<Neg>().enabled = false;
 			Destroy(this.gameObject);
 		}
 	}
