@@ -5109,6 +5109,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCount: 0
   m_Material: {fileID: 2100000, guid: 77282f77c23a7eb428e2fc55559e4d71, type: 2}
+  freeze: {fileID: 4800000, guid: f83c510c35811234280fd2582420f956, type: 3}
+  normal: {fileID: 0}
 --- !u!1 &91550496
 GameObject:
   m_ObjectHideFlags: 0

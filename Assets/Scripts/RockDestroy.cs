@@ -6,13 +6,12 @@ public class RockDestroy : MonoBehaviour
 {
 	public int attackCount;
 	public Material m_Material;
-	Shader freeze, normal;
+	public Shader freeze, normal;
 
     // Start is called before the first frame update
     void Start()
     {
 		attackCount = 0;
-		freeze = Shader.Find("Custom/FreezeRock");
 		normal = m_Material.shader;
     }
 
