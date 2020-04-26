@@ -1,7 +1,11 @@
 ManifestFileVersion: 0
-CRC: 799871874
+CRC: 543416321
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: freezeball
       Dependencies: {}
+    Info_1:
+      Name: babyball
+      Dependencies:
+        Dependency_0: freezeball
