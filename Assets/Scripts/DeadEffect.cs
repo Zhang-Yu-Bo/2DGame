@@ -2,18 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DownEdge : MonoBehaviour
+public class DeadEffect : MonoBehaviour
 {
-	public Rigidbody2D player;
-	Rigidbody2D downEdge;
-	Vector2 beginPos;
 	public Camera mainCam;
 
     // Start is called before the first frame update
     void Start()
     {
-		downEdge = GetComponent<Rigidbody2D>();
-		beginPos = new Vector2(player.position.x, player.position.y);
+        
     }
 
     // Update is called once per frame
@@ -24,7 +20,8 @@ public class DownEdge : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		mainCam.GetComponent<GrayScale>().enabled = false;
-		player.transform.position = beginPos;
+		mainCam.GetComponent<GrayScale>().enabled = true;
+		mainCam.GetComponent<Blur>().enabled = false;
+		mainCam.GetComponent<Neg>().enabled = false;
 	}
 }

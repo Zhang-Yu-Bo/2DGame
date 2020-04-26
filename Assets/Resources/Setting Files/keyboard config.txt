@@ -1,4 +1,4 @@
-W 119
+Space 32
 A 97
 D 100
-J 106
+LeftControl 306

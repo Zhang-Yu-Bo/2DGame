@@ -5,7 +5,6 @@ using UnityEngine;
 public class ClockNeg : MonoBehaviour
 {
 	public Camera mainCam;
-	public AudioClip ZaWarudo;
 	AudioSource au;
 	// Start is called before the first frame update
 	void Start()
@@ -26,7 +25,7 @@ public class ClockNeg : MonoBehaviour
 			mainCam.GetComponent<Neg>().enabled = true;
 			mainCam.GetComponent<GrayScale>().enabled = false;
 			mainCam.GetComponent<Blur>().enabled = false;
-			au.PlayOneShot(ZaWarudo);
+			mainCam.GetComponent<AudioSource>().Play(0);
 			Destroy(this.gameObject);
 		}
 	}
