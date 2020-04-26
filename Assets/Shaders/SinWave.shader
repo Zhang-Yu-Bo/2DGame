@@ -35,15 +35,19 @@
             sampler2D _MainTex;
             float4 _MainTex_ST;
 
+            float _counter = 0.0f;
+
             v2f vert(appdata v)
             {
                 v2f o;
-                float phase = _Time * 20.0;
+                float phase = _Time * 100.0;
                 //v.vertex.z = sin(v.vertex.y + phase) * 0.5;
-                v.vertex.z = sin(v.vertex.y + v.vertex.x + phase) * 2;
+                v.vertex.y = sin(_counter + v.vertex.y + phase) * 1;
+                v.vertex.x = sin(_counter + v.vertex.x + phase) * 1;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 //UNITY_TRANSFER_FOG(o,o.vertex);
+                _counter += 10;
                 return o;
             }
 
