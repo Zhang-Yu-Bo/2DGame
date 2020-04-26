@@ -24,6 +24,8 @@ public class ClockNeg : MonoBehaviour
 		if (other.gameObject.tag == "Player")
 		{
 			mainCam.GetComponent<Neg>().enabled = true;
+			mainCam.GetComponent<GrayScale>().enabled = false;
+			mainCam.GetComponent<Blur>().enabled = false;
 			au.PlayOneShot(ZaWarudo);
 			Destroy(this.gameObject);
 		}

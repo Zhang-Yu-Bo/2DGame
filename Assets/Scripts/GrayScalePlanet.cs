@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Beverage : MonoBehaviour
+public class GrayScalePlanet : MonoBehaviour
 {
 	public Camera mainCam;
-	//public Blur canBlur;
-
     // Start is called before the first frame update
     void Start()
     {
-		
+        
     }
 
     // Update is called once per frame
@@ -21,10 +19,10 @@ public class Beverage : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if(other.gameObject.tag=="Player")
+		if (other.gameObject.tag == "Player")
 		{
-			mainCam.GetComponent<Blur>().enabled = true;
-			mainCam.GetComponent<GrayScale>().enabled = false;
+			mainCam.GetComponent<GrayScale>().enabled = true;
+			mainCam.GetComponent<Blur>().enabled = false;
 			mainCam.GetComponent<Neg>().enabled = false;
 			Destroy(this.gameObject);
 		}
