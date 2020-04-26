@@ -23,8 +23,6 @@ public class ClockNeg : MonoBehaviour
 		if (other.gameObject.tag == "Player")
 		{
 			mainCam.GetComponent<Neg>().enabled = true;
-			mainCam.GetComponent<GrayScale>().enabled = false;
-			mainCam.GetComponent<Blur>().enabled = false;
 			mainCam.GetComponent<AudioSource>().Play(0);
 			Destroy(this.gameObject);
 		}
